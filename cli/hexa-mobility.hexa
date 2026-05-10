@@ -1,0 +1,194 @@
+#!hexa strict
+// hexa-mobility/cli/hexa-mobility.hexa — standalone hexa-mobility CLI router
+//
+// 11-doc Stage-5 mobility substrate (HEXA family) router. Spec-first
+// dispatcher: each verb subcmd resolves its spec doc path and prints
+// headline (head -30).
+//
+// v0.1.0 ships as a thin BUNDLE of existing canon docs. 13-verb full
+// n=6 HEXA template authoring (l5-passenger / l5-truck / l5-robotaxi /
+// perception / planning / v2x / mrm / fleet-ops / sim) is tracked in
+// TODO.md and slated for v1.0.0.
+//
+// Cross-link policy (raw#10):
+//   - EV battery cells / charging  → hexa-energy CLI
+//   - V2X 5G/6G / network protocol → hexa-grid CLI
+//   - Vehicle SoC / chip           → hexa-chip CLI
+//   - Perception ML serving        → hexa-codex CLI
+//
+// Root resolution: $HEXA_MOBILITY_ROOT env, else inferred from $0.
+//
+// raw#9 hexa-only, raw#15 read-only.
+
+let VERSION = "0.1.0"
+
+let HOME = env("HOME")
+let HEXA_MOBILITY_ROOT_ENV = env("HEXA_MOBILITY_ROOT")
+
+fn hexa_mobility_root() -> str {
+    if HEXA_MOBILITY_ROOT_ENV.len() > 0 { return HEXA_MOBILITY_ROOT_ENV }
+    let inferred = exec("dirname \"$(dirname \"$0\")\" 2>/dev/null || true").trim()
+    if inferred.len() > 0 { return inferred }
+    return HOME + "/.hexa-mobility"  // @allow-devpath
+}
+
+let HM = hexa_mobility_root()
+
+// 11-doc spec registry: verb_name → (subdir, filename) under docs/
+let VERBS = [
+    ["autonomous_driving",      "docs", "autonomous-driving.md"],
+    ["electric_vehicle",        "docs", "electric-vehicle.md"],
+    ["control_automation",      "docs", "control-automation.md"],
+    ["fun_car",                 "docs", "fun-car.md"],
+    ["cartography_gis",         "docs", "cartography-gis.md"],
+    ["robotics",                "docs", "robotics.md"],
+    ["robotics_transport",      "docs", "robotics-transport.md"],
+    ["motorcycle",              "docs", "motorcycle.md"],
+    ["ultimate_safety",         "docs", "ultimate-safety.md"],
+    ["battery_ev",              "docs", "battery-scale-6-ev.md"],
+    ["governance_safety_urban", "docs", "governance-safety-urban.md"],
+]
+
+fn shq(s: str) -> str {
+    return "'" + s.replace("'", "'\\''") + "'"
+}
+
+fn _file_exists(p: str) -> bool {
+    let r = exec("[ -f " + shq(p) + " ] && echo yes || echo no").trim()
+    return r == "yes"
+}
+
+fn _spec_path(subdir: str, fname: str) -> str {
+    return HM + "/" + subdir + "/" + fname
+}
+
+fn _print_spec_headline(verb: str, spec_path: str) {
+    if _file_exists(spec_path) == false {
+        println("ERROR: spec doc not found: " + spec_path)
+        println("  (set HEXA_MOBILITY_ROOT or run from repo root)")
+        return
+    }
+    println("hexa-mobility " + verb + " — spec doc:")
+    println("  " + spec_path)
+    println("")
+    println("--- doc head (first 30 lines) ---")
+    let raw = exec("head -30 " + shq(spec_path) + " 2>&1")
+    println(raw.trim())
+    println("--- end doc head ---")
+    println("")
+    println("__HEXA_MOBILITY_" + verb.to_upper() + "__ PASS")
+}
+
+fn _print_caveats() {
+    println("")
+    println("--- caveats (raw#10 C3) ---")
+    println("  1. v0.1.0 ships as BUNDLE of 11 existing canon docs.")
+    println("     13-verb full n=6 HEXA template author is TODO.md (v1.0.0).")
+    println("  2. EV battery cells / charging → hexa-energy CLI (do NOT proxy).")
+    println("  3. V2X 5G/6G radio             → hexa-grid CLI.")
+    println("  4. Vehicle SoC / chip          → hexa-chip CLI.")
+    println("  5. Perception ML serving       → hexa-codex CLI.")
+}
+
+fn cmd_status(a: [str]) {
+    println("hexa-mobility " + VERSION + " status — 11-doc Stage-5 mobility substrate (HEXA family)")
+    println("")
+    println("  group                    doc")
+    println("  ------------------------ ----------------------------------")
+    println("  autonomous_driving       autonomous-driving")
+    println("  electric_vehicle         electric-vehicle")
+    println("  control_automation       control-automation (drive-by-wire)")
+    println("  fun_car                  fun-car (consumer)")
+    println("  cartography_gis          cartography-gis (HD-map)")
+    println("  robotics                 robotics (perception/planning shared)")
+    println("  robotics_transport       robotics-transport (haul/freight)")
+    println("  motorcycle               motorcycle (2-wheel)")
+    println("  ultimate_safety          ultimate-safety (MRM / fail-safe)")
+    println("  battery_ev               battery-scale-6-ev")
+    println("  governance_safety_urban  governance-safety-urban")
+    println("")
+    println("  verdict: BUNDLE_FIRST (11/11 docs are existing canon copies)")
+    println("  cross-link: battery → hexa-energy · v2x → hexa-grid · soc → hexa-chip · serve → hexa-codex")
+    _print_caveats()
+}
+
+fn cmd_verb(verb: str) {
+    for row in VERBS {
+        if row[0] == verb {
+            _print_spec_headline(verb, _spec_path(row[1], row[2]))
+            return
+        }
+    }
+    println("hexa-mobility: unknown verb: " + verb)
+    println("(try `hexa-mobility status` for the verb list)")
+    exit(2)
+}
+
+fn cmd_selftest(a: [str]) {
+    println("hexa-mobility selftest — 11-doc presence check")
+    println("")
+    let mut count = 0
+    for row in VERBS {
+        let verb = row[0]
+        let path = _spec_path(row[1], row[2])
+        if _file_exists(path) {
+            println("  [PASS] " + verb)
+            count = count + 1
+        } else {
+            println("  [FAIL] " + verb + " (missing: " + path + ")")
+        }
+    }
+    println("")
+    println("docs_present = " + str(count) + " / 11")
+    if count == 11 {
+        println("__HEXA_MOBILITY_SELFTEST__ PASS")
+    } else {
+        println("__HEXA_MOBILITY_SELFTEST__ FAIL")
+        exit(1)
+    }
+}
+
+fn cmd_version() {
+    println("hexa-mobility " + VERSION)
+    println("standalone n=6 mobility substrate (HEXA family — bundled from canon@aadcb101 on 2026-05-10)")
+    println("license: MIT")
+    println("repo:    https://github.com/dancinlab/hexa-mobility")
+}
+
+fn cmd_help() {
+    println("hexa-mobility " + VERSION + " — standalone Stage-5 mobility substrate CLI")
+    println("")
+    println("usage: hexa-mobility <subcmd> [flags...]")
+    println("")
+    println("verb subcommands (11-doc bundle):")
+    for row in VERBS {
+        println("  " + row[0])
+    }
+    println("")
+    println("utility:")
+    println("  status          11-doc table + cross-link + caveats")
+    println("  selftest        11-doc presence check")
+    println("")
+    println("global flags: --version, --help, -h")
+    println("env:          HEXA_MOBILITY_ROOT (override repo root)")
+    println("")
+    println("cross-link (call sibling CLI directly):")
+    println("  EV battery cells / charging → hexa-energy battery")
+    println("  V2X 5G/6G radio             → hexa-grid v2x")
+    println("  Vehicle SoC / chip          → hexa-chip vehicle")
+    println("  Perception ML serving       → hexa-codex serve")
+}
+
+fn main(args: [str]) {
+    if args.len() < 2 { cmd_help(); return }
+    let sub = args[1]
+
+    if sub == "--version" || sub == "-v" { cmd_version(); return }
+    if sub == "--help"    || sub == "-h" { cmd_help();    return }
+
+    if sub == "status"   { cmd_status(args);   return }
+    if sub == "selftest" { cmd_selftest(args); return }
+    if sub == "help"     { cmd_help();         return }
+
+    cmd_verb(sub)
+}

@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use hexa-mobility in academic work, please cite as below."
+title: "hexa-mobility: HEXA family Stage-5 mobility substrate (n=6 invariant lattice)"
+authors:
+  - name: dancinlab contributors
+    affiliation: dancinlab
+license: MIT
+repository-code: "https://github.com/dancinlab/hexa-mobility"
+url: "https://github.com/dancinlab/hexa-mobility"
+version: "v0.1.0"
+date-released: "2026-05-10"
+keywords:
+  - hexa-family
+  - n6-lattice
+  - mobility
+  - autonomous-driving
+  - stage-5
+  - robotaxi
+  - electric-vehicle
+  - perfect-number

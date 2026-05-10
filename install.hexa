@@ -1,0 +1,33 @@
+#!hexa strict
+// install.hexa — hx build hook for hexa-mobility.
+//
+// Mirrors hexa-matter/install.hexa pattern. raw#9 hexa-only, raw#10 honest C3.
+
+fn run_quick_selftest(root: str) -> bool {
+    let cli = root + "/cli/hexa-mobility.hexa"
+    let exists = exec("[ -f \"" + cli + "\" ] && echo y || echo n").trim()
+    if exists != "y" {
+        eprintln("[hexa-mobility/install] WARN: cli/hexa-mobility.hexa missing — skip selftest")
+        return false
+    }
+    println("[hexa-mobility/install] [post] running quick selftest (11-doc presence check)")
+    let cmd = "HEXA_MOBILITY_ROOT=\"" + root + "\" hexa run \"" + cli + "\" selftest 2>&1"
+    let raw = exec(cmd)
+    if raw.contains("__HEXA_MOBILITY_SELFTEST__ PASS") {
+        println("[hexa-mobility/install]   selftest PASS — 11/11 docs present")
+        return true
+    }
+    eprintln("[hexa-mobility/install] WARN: selftest non-PASS (warn-only)")
+    return false
+}
+
+fn main() {
+    let root = exec("git -C . rev-parse --show-toplevel 2>/dev/null").trim()
+    if root.len() == 0 {
+        eprintln("[hexa-mobility/install] ERROR: not a git repo")
+        return
+    }
+    println("[hexa-mobility/install] post-install hook starting (root=" + root + ")")
+    let _ = run_quick_selftest(root)
+    println("[hexa-mobility/install] done")
+}
