@@ -3,6 +3,7 @@
 > **Stage-5 autonomous-driving substrate** organized around the **n=6 invariant lattice** —
 > passenger car / truck / robotaxi as a single thematic bundle.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20115000.svg)](https://doi.org/10.5281/zenodo.20115000)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](hexa.toml)
 [![Bundle: 11 docs](https://img.shields.io/badge/bundle-11_docs-blue.svg)](#docs)

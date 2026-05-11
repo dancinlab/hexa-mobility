@@ -9,6 +9,14 @@ repository-code: "https://github.com/dancinlab/hexa-mobility"
 url: "https://github.com/dancinlab/hexa-mobility"
 version: "v0.1.0"
 date-released: "2026-05-10"
+doi: "10.5281/zenodo.20115000"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20115000"
+    description: "Concept DOI (always resolves to the latest version)"
+  - type: doi
+    value: "10.5281/zenodo.20115001"
+    description: "Version-specific DOI for v0.1.0"
 keywords:
   - hexa-family
   - n6-lattice
