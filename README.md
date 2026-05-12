@@ -66,19 +66,34 @@ See [`TODO.md`](TODO.md) for the planned 13-verb full-template author at
 
 ---
 
-## Quick start
+## Install
 
 ```bash
-# CLI dispatcher (spec-first)
-hexa run cli/hexa-mobility.hexa status        # 11-doc table
-hexa run cli/hexa-mobility.hexa selftest      # 11-doc presence check
-hexa run cli/hexa-mobility.hexa <verb>        # spec doc headline (head -30)
+# 1. Install hexa-lang (ships `hexa` + `hx` package manager)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dancinlab/hexa-lang/main/install.sh)"
 
-# Sibling CLIs (cross-link policy — DO NOT proxy through hexa-mobility):
-hexa-energy battery        # EV cells / charging
-hexa-grid   v2x            # 5G/6G + V2X
-hexa-chip   vehicle        # vehicle SoC
-hexa-codex  serve          # perception ML serving
+# 2. Install hexa-mobility
+hx install hexa-mobility          # global, pulls latest from registry
+```
+
+## Run
+
+```bash
+hexa-mobility autonomous_driving       # autonomous-driving spec doc
+hexa-mobility electric_vehicle         # electric-vehicle spec doc
+hexa-mobility control_automation       # control-automation (drive-by-wire) spec doc
+hexa-mobility fun_car                  # fun-car (consumer) spec doc
+hexa-mobility cartography_gis          # cartography-gis (HD-map) spec doc
+hexa-mobility robotics                 # robotics (perception/planning shared) spec doc
+hexa-mobility robotics_transport       # robotics-transport (haul/freight) spec doc
+hexa-mobility motorcycle               # motorcycle (2-wheel) spec doc
+hexa-mobility ultimate_safety          # ultimate-safety (MRM / fail-safe) spec doc
+hexa-mobility battery_ev               # battery-scale-6-ev spec doc
+hexa-mobility governance_safety_urban  # governance-safety-urban spec doc
+hexa-mobility status                   # 11-doc table + cross-link + caveats
+hexa-mobility selftest                 # 11-doc presence check
+hexa-mobility version                  # print version
+hexa-mobility help                     # full --help (subcommands + env vars + cross-link)
 ```
 
 ---
