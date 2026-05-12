@@ -69,11 +69,11 @@ See [`TODO.md`](TODO.md) for the planned 13-verb full-template author at
 ## Install
 
 ```bash
-# 1. Install hexa-lang (ships `hexa` + `hx` package manager)
+# 1. Install hexa-lang (gives you `hexa` + `hx` package manager)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dancinlab/hexa-lang/main/install.sh)"
 
 # 2. Install hexa-mobility
-hx install hexa-mobility          # global, pulls latest from registry
+hx install hexa-mobility
 ```
 
 ## Run
