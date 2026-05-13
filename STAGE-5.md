@@ -88,19 +88,106 @@ A genuine L5 system must clear **all four** simultaneously:
 
 ## §4 HARD walls Stage-5 cannot break
 
-Per [`LIMIT_BREAKTHROUGH.md`](LIMIT_BREAKTHROUGH.md) §2.1:
+Per [`LIMIT_BREAKTHROUGH.md`](LIMIT_BREAKTHROUGH.md) §2.1. 각 벽은
+**정량 경계 + 출처 + Stage-5 함의**를 함께 명시한다. 소프트웨어·아키텍처
+단독으로는 어느 한 벽도 깨지지 않는다.
 
-| # | Wall | Stage-5 implication |
-|---|------|---------------------|
-| H4 | Tire–road friction (μ ≤ ~1.0 dry, 0.1 ice) | L5 still skids on black ice — physics, not software |
-| H5 | Braess's paradox | 100% L5 fleet does NOT eliminate urban congestion topology |
-| H6 | Stopping distance v²/(2μg) | L5 reaction time bounded by Newton, not by compute |
-| H7 | Perception decidability (PAC + adversarial) | No general "is-pedestrian" oracle — only ODD restriction |
-| H8 | V2X light-cone | Round-trip latency ≥ propagation delay (c) |
-| H9 | Fatality baseline ~1.3 / 100M VMT | Regulator acceptance gate ≤ 10% of this |
+| # | Wall | Quantitative bound | Origin | Stage-5 implication |
+|---|------|-------------------|--------|---------------------|
+| H4 | 타이어–노면 마찰 | μ ≤ ~1.0 (dry) · 0.3 (wet) · 0.1 (ice) | Coulomb 접촉역학 | L5도 블랙아이스에서 슬립 — 물리, 소프트웨어 아님 |
+| H5 | Braess's paradox | 노드 추가 시 균형 throughput price-of-anarchy ≤ 4/3 (Roughgarden–Tardos 2002) | 네트워크 게임이론 (Braess 1968) | 100% L5 fleet도 도심 위상 정체를 제거하지 못함 |
+| H6 | 정지거리 | d ≥ v·t_r + v²/(2μg);  v=30 m/s, μ=0.9, t_r=0.1 s → d ≥ 73 m | Newton + H4 | t_r → 0에서도 71 m 잔존; compute가 아닌 관성 |
+| H7 | Perception decidability | PAC m ≥ Ω(d/ε²); robust m ≥ Ω(√d · d/ε²) (Schmidt 2018) | PAC-learning + adversarial | 일반 "is-pedestrian" oracle 없음 — ODD 제한만이 우회 |
+| H8 | V2X 광추 | RTT ≥ 2L/c; L=300 m → 광추 RTT ≥ 2 μs, 실측 스택 1–10 ms | 특수상대성 + 스택 오버헤드 | 사이클 안에 cooperative consensus 불가한 거리 존재 |
+| H9 | Fatality baseline | US 1.33 / 100M VMT (NHTSA FARS 2023); 규제 천장 ≤ 0.13 / 100M VMT | 통계 + 사회 협상 | 95% 신뢰 유의성에 ~275M VMT 필요 (Kalra–Paddock 2016) |
+
+**보조 정량 노트**:
+
+- **H6**: t_r = 100 ms reflex (A20)에서도 v·t_r = 3 m 잔존이며 v²/(2μg) 항이 dominant. 도심 8.3 m/s (30 km/h)에서도 d ≥ 4.7 m.
+- **H7**: ImageNet-스케일 d ≈ 10⁶ 가정 시 robust m ≥ 10⁹ — 현 글로벌 라벨링 산업(~10⁸/yr) 1자릿수 부족.
+- **H9**: Waymo 누적(2024) ~50M autonomous miles는 95% 유의성 도달의 1/5. 단일 operator가 *통계로* L5 안전을 증명하기까지 ~5–10년 누적 운영 필요.
 
 **Stage-5 cannot violate H4–H9.** It can only *engineer around* them
 via ODD design, redundant sensing, and MRM fail-operational behavior.
+
+---
+
+## §4.5 캐노니컬 추가 HARD walls (H10–H15)
+
+§4의 H4–H9 외에 Stage-5 §3 4-게이트 통과를 깊이 막는 6개 **시스템·표준·시장·사이버 메타-벽**. §5의 기술 돌파가 *모두* 성공해도 행정·계리·운영 단계에서 봉쇄되는 지점.
+
+| # | Wall | Quantitative bound | Origin | §3 게이트 |
+|---|------|-------------------|--------|-----------|
+| H10 | ASIL-D 잔존 고장률 | random HW ≤ 10⁻⁸ dangerous failures/h (ISO 26262-5 §9) | 표준 (HARD by certification) | §3-4 |
+| H11 | Robust generalization gap | robust m / standard m ≥ Ω(√d) (Schmidt 2018) | 정보이론 | §3-3, H7 강화 |
+| H12 | Reliability chain rule | P(sys fail) ≥ 1 − ∏(1−p_i); N=50 ASIL-D 요소 → 5·10⁻⁷/h 누적 | 확률 합성 | §3-2, §3-4 |
+| H13 | Sim-to-real Wasserstein floor | W₂(P_sim, P_real) ≥ ε₀ > 0 (모든 유한 generator) | 측도론 (Arjovsky 2017) | §3-3, H7 강화 |
+| H14 | Liability–reinsurance 천장 | 글로벌 reinsurance capacity ~$700B (Swiss Re sigma 2024) | 보험 자본시장 | §3-1, 규제 |
+| H15 | Cyber attack-surface 비대칭 | OTA 패치 ≥ ISO 26262-2 freeze + 21434 TARA 재검증(주 단위) ≫ 공격자 weaponization (시간/일) | ISO/SAE 21434, Kerckhoffs | §3-2, §3-4 |
+
+**왜 §4.5가 §4와 분리되는가**: H4–H9는 1차 물리·통계 벽이고,
+H10–H15는 **시스템·표준·시장·사이버 메타-벽**. 후자는 §5의 기술
+돌파가 모두 성공해도 *행정·계리·운영* 단계에서 봉쇄된다.
+
+**해설**:
+
+- **H10**: random HW ≤ 10⁻⁸/h. 평균 50 vh-h/day × 10⁶ fleet → 5·10⁷ vh-h/day → *random HW 단독으로* 0.5 dangerous failure/day 시스템 전체. systematic SW 결함은 별도 ISO 26262-6 process 증거 필요 — 격자 산술로 대체 불가.
+- **H11**: Schmidt et al. (2018) — adversarial-robust generalization은 standard보다 sample-complexity √d배. d~10⁶ 시 robust m ≥ 10⁹. **VLA scaling (A1)** 단독으로 못 깬다.
+- **H12**: §3-2 system fallback이 N개 ASIL-D 요소의 chain rule로 약화. **TMR (A5)** redundancy는 3× headroom만 제공 — 50개 요소면 여전히 한계 위.
+- **H13**: §5의 **합성 corpus only (E79)** · **counterfactual sim (B30)**이 깨려는 벽. Arjovsky (Wasserstein-GAN, 2017) — *어떤* 유한 generator도 진짜 분포와 W₂ > 0. *희귀 long-tail*은 sim에서 학습 불가능한 영역이 항상 존재.
+- **H14**: 제조사 100% 책임 시프트 (C61)의 자본시장 천장. 글로벌 reinsurance ~$700B capacity. Stage-5 fleet $1T+ 노출 시 자본 부족 → C61 단독으로 깰 수 없음.
+- **H15**: OTA 패치 사이클이 공격자 weaponization 사이클보다 본질적으로 느림. ISO 26262 변경관리 freeze + 21434 TARA 재검증 = 주 단위. zero-day weaponization = 시간/일 단위. **비대칭은 supplier 측 손해**.
+
+---
+
+## §4.6 합성 정리: SOFT chain ≠ HARD break
+
+**정리** (SOFT 합성의 한계). HARD wall W가 변수 x의 부등식
+g(x) ≤ c (c는 물리/표준 상수)로 표현되면, SOFT 우회
+{b₁, b₂, …, bₙ}는 *x를 더 효율적으로 사용*하는 곱 ∏ gᵢ을 제공할 뿐
+c 자체는 변경하지 않는다. ∏ gᵢ < ∞ 인 한 c를 넘는 g(x)는 달성 불가.
+
+**Corollary (Stage-5)**: §5의 어떤 SOFT 우회 조합도 H4(μ ≤ 1.0),
+H6(v²/(2μg)), H8(c), H9(NHTSA 통계 유의성 ≥ 275M VMT), H10(ASIL-D
+표준 10⁻⁸/h) 자체를 *제거*하지 못한다. **우회 = 벽 안에서 최적화**,
+**돌파 ≠ 벽 제거**.
+
+**구체 사례 — H4 우회 조합의 한계**:
+
+- 예측 grip estimator (B39) × V2I 노면 사전 통보 (B34) × 가변-tread 스마트 타이어 × AV 전용 anti-ice 살포 = **μ-aware operation**.
+- 4개 SOFT × 평균 1.2 효율 향상 ≈ 2.07× 운영 안전 마진 — 그러나 *μ_road = 0.1 (ice)일 때 μ_effective ≤ 0.1*. 정지거리 v²/(2·0.1·9.8) 자체는 불변.
+
+**결론**: §5는 *기댓값* 안전을 끌어올리는 도구이지 *최악 시나리오*
+봉쇄를 깨는 도구가 아니다. Stage-5 §3 4-게이트 통과는 §5 + **ODD 제한
+(= 분포 자체를 자르는 경계 작업)**의 조합으로만 가능.
+
+---
+
+## §4.7 §5.6 통합 시너지의 잔존 봉쇄점
+
+§5.6의 4가지 가장 plausible 조합 각각에 대해, §4 + §4.5 벽 중 어느
+것이 *잔존*하는가를 명시. 봉쇄는 *조합 안의 가장 약한 게이트*에 의해
+결정된다.
+
+| §5.6 조합 | 1차 통과 | 잔존 봉쇄 (조합으로도 안 깨지는 벽) |
+|----------|---------|------------------------------------|
+| **1. Closed-ODD bootstrap** (C53+A20+B49) — 공항·광산 → 일반 ODD | §3-1 (ODD 제한), §3-4 (reflex 분리) | **H7** (일반 ODD 확장 시 long-tail 재등장), **H11** (robust m gap), **H14** (확장 시 책임 자본), **H9** (275M VMT 누적 시간) |
+| **2. Infrastructure-absorbed H7** (C51+B34+HD-map prior) — 스마트로드 | H7 부분 흡수 | **H8** (V2X RTT 광추), **H10** (인프라 의존 ASIL-D — 인프라 다운 시 fail-degraded), **H14-class capex** (km당 인프라 비용 $10⁶ 클래스), **H15** (인프라 사이버 면적 폭증) |
+| **3. Continuous-ODD score** (A6+A14+B30) — 연속 신뢰값 | §3-1 의미 재정의 | **H11** (PAC), **H10** (shield 자체 ASIL-D 인증), **H13** (B30의 sim-to-real floor), **§3-1의 규제 수용성** (이진→연속 게이트 인정 사례 없음) |
+| **4. H9 정치경제 패키지** (C57+C61+C67) — 보험풀+책임시프트+NTSB | H9 사회 게이트 부분 완화 | **H4–H8** 무관 (기술 벽 못 깸), **H14** (재보험 자본 천장), **H15** (cyber liability), **H10** (ASIL-D는 협상 불가) |
+
+**메타-관측**: 4개 조합 모두 **H10 또는 H14에서 봉쇄**된다. Stage-5
+봉쇄의 *마지막 잠금*은 물리(H4–H8)도 perception(H7·H11)도 아닌
+**표준·재보험(H10·H14) 메타-벽**이다. §5의 90개 벡터 중 H10·H14를
+정면 다루는 것은 C58(AI driver's license), C61(책임 시프트),
+B44(black-box mandate), C68(open safety case) 정도 — *합성 가능성이
+가장 적게 탐색된 축*.
+
+**미커버** (raw#10 C3 — 별도 audit 필요):
+
+- **H10 · H14 합성** 양산 통합 사례 부재 — 학계·산업 모두 *기술 게이트* 위주 탐구.
+- **H13 (sim-to-real)** 정량 측정 표준 부재 — operator마다 자체 metric (Waymo MPI, Mobileye REM 등은 모두 *behavioral* metric, *distributional* metric 아님).
+- **H15 cyber vs ISO 26262 변경관리 freeze**의 시간 비대칭은 ISO/SAE 21434(2021)가 *정의*했을 뿐 *해결*하지 않은 상태.
 
 ---
 
@@ -289,4 +376,4 @@ canon docs. The L5 autonomy badge in README is intentionally
 > *"Stage-5 means the geofence is gone — not that physics is gone.
 > Friction, Braess, and the perception long-tail remain."*
 
-— hexa-mobility canonical Stage-5 reference (2026-05-13; §5 풀 breakthrough 90개 + 통합 시너지 병합)
+— hexa-mobility canonical Stage-5 reference (2026-05-13; §5 풀 breakthrough 90개 + §4 봉쇄 심화 H10–H15 + 합성 정리 + §5.6 잔존 벽 매핑)
