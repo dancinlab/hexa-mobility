@@ -71,6 +71,27 @@ verbs_wired = 0
 verbs_spec = 11
 verdict = "BUNDLE_FIRST"
 extracted_from = "canon/domains/{infra,energy}/ @ aadcb101"
+verify_scripts = 4
+verify_pass = 4
+verify_pattern = "SPEC_FIRST (sister of hexa-matter/rtsc/ufo/cern/fusion)"
+verify_anchors = [
+    "SAE J3016 L0-L5 autonomy taxonomy",
+    "ISO 26262 ASIL A-D functional safety",
+    "NCAP / IIHS crash-test protocols",
+    "NHTSA FARS ~1.3 fatality / 100M VMT baseline",
+    "Braess's paradox (1968) — network theory HARD",
+    "Battery energy density 300 Wh/kg cell (electrochemistry HARD)",
+    "Waymo public MPI · CA-DMV disengagement reports",
+]
+honesty_caveats = [
+    "L5 autonomy at scale is UNVERIFIED (raw#10 C3)",
+    "Tesla FSD = L2 supervised, not L5",
+    "Cruise (GM) defunct as of 2024",
+    "ASIL-D claims require ISO 26262 evidence, not lattice fit",
+    "NCAP / IIHS use agency protocols, not lattice arithmetic",
+    "Each operator uses their OWN MPI metric — no lattice-fit across",
+    "Safety claims UNVERIFIED until peer-reviewed/regulator-cleared",
+]
 
 # ── Scope honesty (raw#10 C3) ─────────────────────────────
 [scope]

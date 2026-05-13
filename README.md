@@ -6,8 +6,11 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20115000.svg)](https://doi.org/10.5281/zenodo.20115000)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](hexa.toml)
-[![Bundle: 11 docs](https://img.shields.io/badge/bundle-11_docs-blue.svg)](#docs)
+[![Verbs: 11 spec](https://img.shields.io/badge/verbs-11_spec-blue.svg)](#docs)
+[![Verify: 4/4 PASS](https://img.shields.io/badge/verify-4%2F4_PASS-brightgreen.svg)](verify/run_all.hexa)
+[![Selftest: 11/11 PASS](https://img.shields.io/badge/selftest-11%2F11_PASS-brightgreen.svg)](cli/hexa-mobility.hexa)
 [![Status](https://img.shields.io/badge/status-bundle--first-orange.svg)](#status)
+[![L5 autonomy](https://img.shields.io/badge/L5_autonomy-UNVERIFIED-lightgrey.svg)](LIMIT_BREAKTHROUGH.md)
 
 ---
 
@@ -95,6 +98,42 @@ hexa-mobility selftest                 # 11-doc presence check
 hexa-mobility version                  # print version
 hexa-mobility help                     # full --help (subcommands + env vars + cross-link)
 ```
+
+---
+
+## Verify
+
+Sister-substrate `verify/run_all.hexa` aggregator pattern, scaled to
+Stage-5 mobility spec-first scope. From the repo root:
+
+```bash
+hexa run verify/run_all.hexa     # exit 0 = all 4 scripts PASS
+```
+
+| script                            | what it checks                                                                                  |
+| --------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `verify/spec_presence.hexa`       | all 11 verb spec docs present at declared paths                                                 |
+| `verify/lattice_arithmetic.hexa`  | n=6 self-consistency (σ·φ = n·τ = 24) — *aux only* per `LATTICE_POLICY.md` §1.3                 |
+| `verify/real_limits_anchor.hexa`  | `LIMIT_BREAKTHROUGH.md` anchors (SAE J3016 L0–L5 · ISO 26262 ASIL A–D · NCAP · IIHS · NHTSA · Braess · Waymo MPI) |
+| `verify/closure_consistency.hexa` | scoreboard cross-check (CLI · `hexa.toml` · README · `AGENTS.md`)                               |
+
+Per `LATTICE_POLICY.md` §1.3, lattice-arithmetic identities are
+permitted only as auxiliary self-consistency checks; the substrate's
+real verification anchors live in `LIMIT_BREAKTHROUGH.md`.
+
+**Honesty caveats (raw#10 C3):**
+
+- **L5 autonomy at scale is UNVERIFIED.** Waymo = L4 geofenced;
+  Tesla FSD = L2 supervised, NOT L5. No commercial L5 in 2024–2026.
+- **Cruise (GM) is defunct as of 2024.**
+- **ASIL-D claims require ISO 26262 evidence**, not n=6 lattice fit.
+- **NCAP / IIHS scores use agency protocols**, not lattice arithmetic.
+- **Each operator uses their OWN MPI / disengagement / intervention
+  metric** — Waymo MPI, Mobileye REM, Baidu Apollo MTBF, Pony.ai
+  disclosures, NVIDIA DRIVE sim hours, Aurora pre-commercial trials —
+  no lattice-fit applies across operators.
+- **Safety claims remain UNVERIFIED** until peer-reviewed and/or
+  regulator-cleared.
 
 ---
 

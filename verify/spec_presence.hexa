@@ -1,0 +1,84 @@
+#!hexa strict
+// hexa-mobility/verify/spec_presence.hexa — 11-verb spec doc presence verifier.
+//
+// Closure anchor #1 for hexa-mobility (spec-first Stage-5 substrate):
+// each of the 11 verbs declared in hexa.toml [verbs] must resolve to a
+// real spec markdown at <subdir>/<filename>. This is the *honest*
+// closure check for a spec-first repo — file presence, not behavioural
+// promise.
+//
+// Per LATTICE_POLICY §1.3: spec-presence is real engineering verification
+// (files exist on disk); not a lattice tautology.
+//
+// Stage-5 context (raw#10 C3): L5 autonomy at scale is UNVERIFIED.
+// Tesla FSD = L2 supervised, not L5. Waymo = L4 geofenced.
+
+let HOME = env("HOME")
+let HEXA_MOBILITY_ROOT_ENV = env("HEXA_MOBILITY_ROOT")
+
+fn shq(s: str) -> str {
+    return "'" + s.replace("'", "'\\''") + "'"
+}
+
+fn _resolve_root() -> str {
+    if HEXA_MOBILITY_ROOT_ENV.len() > 0 { return HEXA_MOBILITY_ROOT_ENV }
+    let oldpwd = env("OLDPWD")
+    if oldpwd.len() > 0 {
+        let t = exec("[ -f " + shq(oldpwd) + "/hexa.toml ] && echo y || echo n").trim()
+        if t == "y" { return oldpwd }
+    }
+    let pwd = env("PWD")
+    if pwd.len() > 0 {
+        let t = exec("[ -f " + shq(pwd) + "/hexa.toml ] && echo y || echo n").trim()
+        if t == "y" { return pwd }
+    }
+    return HOME + "/core/hexa-mobility"
+}
+
+fn _file_exists(p: str) -> bool {
+    let r = exec("[ -f " + shq(p) + " ] && echo yes || echo no").trim()
+    return r == "yes"
+}
+
+// 11-verb spec registry — must match cli/hexa-mobility.hexa VERBS and hexa.toml [verbs].
+let VERBS = [
+    ["autonomous_driving",      "docs/autonomous-driving.md"],
+    ["electric_vehicle",        "docs/electric-vehicle.md"],
+    ["control_automation",      "docs/control-automation.md"],
+    ["fun_car",                 "docs/fun-car.md"],
+    ["cartography_gis",         "docs/cartography-gis.md"],
+    ["robotics",                "docs/robotics.md"],
+    ["robotics_transport",      "docs/robotics-transport.md"],
+    ["motorcycle",              "docs/motorcycle.md"],
+    ["ultimate_safety",         "docs/ultimate-safety.md"],
+    ["battery_ev",              "docs/battery-scale-6-ev.md"],
+    ["governance_safety_urban", "docs/governance-safety-urban.md"],
+]
+
+fn main() {
+    let root = _resolve_root()
+    println("hexa-mobility/verify/spec_presence — 11-verb spec doc presence")
+    println("  root: " + root)
+    println("")
+    let mut ok = 0
+    let mut bad = 0
+    for row in VERBS {
+        let verb = row[0]
+        let rel = row[1]
+        let abs_p = root + "/" + rel
+        if _file_exists(abs_p) {
+            println("  [PASS] " + verb + " -> " + rel)
+            ok = ok + 1
+        } else {
+            println("  [FAIL] " + verb + " -> " + rel + " MISSING (abs: " + abs_p + ")")
+            bad = bad + 1
+        }
+    }
+    println("")
+    println("  spec docs present: " + str(ok) + " / 11")
+    if bad > 0 {
+        println("__HEXA_MOBILITY_SPEC_PRESENCE__ FAIL")
+        exit(1)
+    }
+    println("__HEXA_MOBILITY_SPEC_PRESENCE__ PASS")
+}

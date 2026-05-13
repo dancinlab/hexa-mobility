@@ -68,9 +68,35 @@ The dominant operating envelopes are:
 
 - **Urban speed limit 30–50 km/h** — regulatory, not physical
 - **0.08 BAC blood-alcohol** — regulatory
-- **L4/L5 autonomy taxonomy (SAE J3016)** — standard
-- **UN-R157 ALKS regulation** — regulatory
+- **SAE J3016 L0–L5 autonomy taxonomy** — standard
+  (L0 = no automation · L1 = driver-assist · L2 = partial · L3 = conditional ·
+  L4 = high (geofenced) · L5 = full anywhere). **L5 at scale is UNVERIFIED**.
+- **ISO 26262 ASIL ratings A/B/C/D** — automotive functional-safety
+  standard (ASIL-D = highest integrity, e.g. brake/steer). Claims at
+  ASIL-D require ISO 26262 evidence, not n=6 lattice fit.
+- **NCAP / IIHS crash-test ratings** — independent safety scoring
+  (Euro NCAP · US-NCAP · IIHS Top Safety Pick+). These use the
+  agencies' own protocols; the lattice does not score crash tests.
+- **AV disengagement / intervention / MPI** — each operator uses their
+  OWN metric: Waymo MPI (miles per intervention), CA-DMV disengagement,
+  Tesla FSD intervention, Mobileye REM stats, Baidu Apollo MTBF,
+  Pony.ai PR-disclosed numbers, NVIDIA DRIVE simulation hours,
+  Aurora pre-commercial trials. No lattice-fit applies.
+- **UN-R157 ALKS regulation** — regulatory (highway L3 only)
 - **California DMV autonomous-vehicle disengagement reporting** — regulatory
+
+#### §2.3.1 Per-operator caveats (raw#10 C3 — no lattice over-claim)
+
+| Operator | Status (2024–2026) | Honest claim |
+|----------|-------------------|--------------|
+| Waymo | Operating commercial robotaxi (Phoenix, SF, LA, Austin) | Geofenced L4 within ODD; Waymo's own MPI; ~10× lower fatality *within ODD only*; not L5 |
+| Cruise (GM) | **Defunct as of 2024** — wound down after Oct-2023 incident | Past disengagement data only; no current ops |
+| Tesla FSD | Available as **L2 supervised** | NOT L5; driver-monitoring required; Tesla FSD intervention rate is Tesla's own metric |
+| Mobileye | Tier-1 supplier · REM mapping | EyeQ ASIL-B/D depending on SKU; REM stats are Mobileye's own |
+| Baidu Apollo | Commercial robotaxi (Wuhan, Beijing) | Operator-disclosed MTBF; not independently audited at L5 |
+| Pony.ai | Robotaxi pilot (Guangzhou, Beijing, Fremont) | PR-disclosed numbers; no L5 claim at scale |
+| NVIDIA DRIVE | Compute platform (Orin / Thor) | ASIL-D platform; not a self-driving system per se |
+| Aurora | Pre-commercial trucking pilot | No L5 commercial; own intervention reports |
 
 ---
 
@@ -153,6 +179,23 @@ depends on civic acceptance, not technology.
    speed / Braess paradox are not dictated by σ(6)=12.
 7. **Public data only**: NHTSA, CA DMV disengagement reports, EPA
    range estimates — no proprietary telemetry; no GDPR concern.
+8. **L5 autonomy is UNVERIFIED at scale**: per SAE J3016, no operator
+   has independently-audited L5 (unrestricted ODD) deployment in the
+   2024–2026 window. Tesla FSD = L2 supervised, not L5. Waymo = L4
+   geofenced. All "L5 in N years" claims remain UNVERIFIED until
+   regulator-cleared.
+9. **ISO 26262 ASIL-D claims require ISO 26262 evidence**: per raw#10
+   C3, ASIL-D functional-safety claims must use the ISO 26262
+   process (HARA → FSR → TSR → HSI → ISO 26262-2/-3/-4/-6/-9), not
+   n=6 lattice. Lattice cannot substitute for ASIL evidence.
+10. **NCAP/IIHS scores are agency-protocol**: crash-test ratings come
+    from Euro NCAP / US-NCAP / IIHS protocols. The substrate does NOT
+    re-derive these via lattice arithmetic.
+11. **AV/100MmiPI is operator-specific**: Waymo MPI, Cruise (defunct)
+    disengagement, Tesla FSD intervention, Mobileye REM, Baidu Apollo
+    MTBF, Pony.ai disclosures, NVIDIA DRIVE sim hours, Aurora trial
+    reports — each metric is the operator's OWN; no lattice-fit
+    applies across operators.
 
 ---
 
