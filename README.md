@@ -1,16 +1,27 @@
-# 🧭 hexa-mobility — n=6 mobility substrate (Stage-5 autonomous)
+<p align="center">
+  <img src="docs/logo.svg" width="140" alt="hexa-mobility">
+</p>
+
+<h1 align="center">🚗 hexa-mobility</h1>
+
+<p align="center"><strong>HEXA-Mobility family</strong> — transport · vehicles · Stage-5 autonomous-driving substrate</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <a href=".github/workflows/lint.yml"><img alt="CI" src="https://github.com/dancinlab/hexa-mobility/actions/workflows/lint.yml/badge.svg"></a>
+  <img alt="Spec" src="https://img.shields.io/badge/spec-v0.1-success">
+  <img alt="Verbs" src="https://img.shields.io/badge/verbs-11-informational">
+  <img alt="Verify" src="https://img.shields.io/badge/verify-4%2F4%20PASS-informational">
+  <img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.20115000.svg">
+  <img alt="Sibling" src="https://img.shields.io/badge/sibling-hexa--grid%20·%20hexa--meta%20·%20hexa--millennium-blueviolet">
+</p>
+
+<p align="center">autonomous-driving · electric-vehicle · drive-by-wire · HD-map · robotics-transport · MRM-fail-safe · L5</p>
+
+---
 
 > **Stage-5 autonomous-driving substrate** organized around the **n=6 invariant lattice** —
 > passenger car / truck / robotaxi as a single thematic bundle.
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20115000.svg)](https://doi.org/10.5281/zenodo.20115000)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](hexa.toml)
-[![Verbs: 11 spec](https://img.shields.io/badge/verbs-11_spec-blue.svg)](#docs)
-[![Verify: 4/4 PASS](https://img.shields.io/badge/verify-4%2F4_PASS-brightgreen.svg)](verify/run_all.hexa)
-[![Selftest: 11/11 PASS](https://img.shields.io/badge/selftest-11%2F11_PASS-brightgreen.svg)](cli/hexa-mobility.hexa)
-[![Status](https://img.shields.io/badge/status-bundle--first-orange.svg)](#status)
-[![L5 autonomy](https://img.shields.io/badge/L5_autonomy-UNVERIFIED-lightgrey.svg)](LIMIT_BREAKTHROUGH.md)
 
 ---
 
@@ -121,7 +132,6 @@ Per `LATTICE_POLICY.md` §1.3, lattice-arithmetic identities are
 permitted only as auxiliary self-consistency checks; the substrate's
 real verification anchors live in `LIMIT_BREAKTHROUGH.md`.
 
-**Honesty caveats (raw#10 C3):**
 
 - **L5 autonomy at scale is UNVERIFIED.** Waymo = L4 geofenced;
   Tesla FSD = L2 supervised, NOT L5. No commercial L5 in 2024–2026.
@@ -137,9 +147,33 @@ real verification anchors live in `LIMIT_BREAKTHROUGH.md`.
 
 ---
 
+## Repo layout
+
+```
+hexa-mobility/
+├── README.md
+├── LICENSE                       MIT
+├── AGENTS.tape                   identity + governance (.tape v1.2)
+├── hexa.toml                     package manifest
+├── install.hexa                  hx install hook
+├── cli/                          hexa-mobility CLI (11-doc router)
+├── docs/                         11 mobility spec docs (autonomous-driving · EV · …)
+│   └── logo.svg                  repo logo
+├── papers/                       reference papers
+├── tests/                        selftest sweep
+├── verify/                       4-script closure (run_all + 3 anchors)
+├── state/                        runtime state (gitignored)
+├── STAGE-5.md                    Stage-5 autonomy reference
+├── TAPE-AUDIT.md                 .tape v1.x adoption ledger
+├── TODO.md                       v1.0.0 13-verb full-template plan
+├── LATTICE_POLICY.md             real-limits policy
+├── LIMIT_BREAKTHROUGH.md         HARD/SOFT wall audit
+└── IMPORTED_FROM_CANON.md        canon-bundle provenance
+```
+
 ## License
 
-MIT — see [`LICENSE`](LICENSE).
+[MIT](LICENSE) — see [`LICENSE`](LICENSE).
 
 ## Provenance
 
