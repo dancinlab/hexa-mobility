@@ -48,6 +48,27 @@
   brief = "HEXA-Mobility family · transport · vehicles"
   parent = "dancinlab/echoes"
 
+@L l1 := "repo-layout" :: structure [active]
+  AGENTS.tape -> "this file · governance + identity (.tape v1.2)"
+  CITATION.cff -> "file"
+  CLAUDE.md -> "symlink → AGENTS.tape"
+  hexa.toml -> "TOML config"
+  IMPORTED_FROM_CANON.md -> "documentation"
+  install.hexa -> "hexa-lang source"
+  LATTICE_POLICY.md -> "project-local copy of dancinlab real-limits standard"
+  LICENSE -> "license file"
+  LIMIT_BREAKTHROUGH.md -> "per-domain HARD/SOFT_WALL · BREAKABLE_WITH_TECH · UNCLEAR audit"
+  README.md -> "human intro · 18-block format (atlas/README-FORMAT.md)"
+  STAGE-5.md -> "documentation"
+  TAPE-AUDIT.md -> ".tape v1.x adoption audit ledger"
+  TODO.md -> "documentation"
+  cli/ -> "subdir (1 items)"
+  docs/ -> "documentation (13 items)"
+  papers/ -> "papers / publications (3 items)"
+  state/ -> "runtime state (gitignored typically) (1 items)"
+  tests/ -> "test suite (1 items)"
+  verify/ -> "verification scripts (5 items)"
+
 @D g_inherit := "inherits-lattice-policy" :: governance [required]
   rule = "All echoes/LATTICE_POLICY.md rules apply — real-limits-first · lattice-is-tool · verification-anchor-real-limit · no-artificial-ceilings · honesty-obligation-external."
   authority = "[@x_lattice_policy]"
