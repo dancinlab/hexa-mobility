@@ -46,7 +46,7 @@
 @I id001 := "hexa-mobility" :: identity-claim [d=2026-05-14 active]
   kind = "HEXA-Mobility family — transport · vehicles"
   brief = "HEXA-Mobility family · transport · vehicles"
-  parent = "dancinlab/echoes"
+  parent = "dancinlab"
 
 @L l1 := "repo-layout" :: structure [active]
   AGENTS.tape -> "this file · governance + identity (.tape v1.2)"
