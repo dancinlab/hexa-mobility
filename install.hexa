@@ -1,7 +1,6 @@
 #!hexa strict
 // install.hexa — hx build hook for hexa-mobility.
 //
-// Mirrors hexa-matter/install.hexa pattern. raw#9 hexa-only, raw#10 honest C3.
 
 fn run_quick_selftest(root: str) -> bool {
     let cli = root + "/cli/hexa-mobility.hexa"

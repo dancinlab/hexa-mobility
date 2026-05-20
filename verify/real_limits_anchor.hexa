@@ -6,7 +6,6 @@
 // k · Stefan-Boltzmann · Carnot · ASML throughput · ERCOT · etc.) and
 // at least one engineering/industry threshold.
 //
-// Stage-5 mobility anchors (raw#10 C3):
 //   - SAE J3016 L0–L5 taxonomy (autonomy levels — STANDARD)
 //   - ISO 26262 ASIL A/B/C/D ratings (functional safety — STANDARD)
 //   - NCAP / IIHS crash-test scores (independent safety protocol)
@@ -103,7 +102,6 @@ fn main() {
         }
     }
 
-    // 3. raw#10 C3 caveats: per-operator honesty (no lattice over-claim).
     //    Each operator must be present with its own caveat.
     let unproven = [
         ["L5 autonomy at scale UNVERIFIED",  "L5"],

@@ -8,7 +8,6 @@
 // Apollo, Pony.ai, NVIDIA DRIVE, Aurora), and must be paired with at
 // least one real-limits anchor (see real_limits_anchor.hexa).
 //
-// Stage-5 mobility honesty (raw#10 C3):
 //   - L5 autonomy at scale is UNVERIFIED — Waymo = L4 geofenced;
 //     Tesla FSD = L2 supervised; no commercial L5 in 2024–2026.
 //   - Cruise is defunct as of 2024.

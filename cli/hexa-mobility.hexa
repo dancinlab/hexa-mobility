@@ -10,7 +10,6 @@
 // perception / planning / v2x / mrm / fleet-ops / sim) is tracked in
 // TODO.md and slated for v1.0.0.
 //
-// Cross-link policy (raw#10):
 //   - EV battery cells / charging  → hexa-energy CLI
 //   - V2X 5G/6G / network protocol → hexa-grid CLI
 //   - Vehicle SoC / chip           → hexa-chip CLI
@@ -18,7 +17,6 @@
 //
 // Root resolution: $HEXA_MOBILITY_ROOT env, else inferred from $0.
 //
-// raw#9 hexa-only, raw#15 read-only.
 
 let VERSION = "0.1.0"
 
@@ -81,7 +79,6 @@ fn _print_spec_headline(verb: str, spec_path: str) {
 
 fn _print_caveats() {
     println("")
-    println("--- caveats (raw#10 C3) ---")
     println("  1. v0.1.0 ships as BUNDLE of 11 existing canon docs.")
     println("     13-verb full n=6 HEXA template author is TODO.md (v1.0.0).")
     println("  2. EV battery cells / charging → hexa-energy CLI (do NOT proxy).")

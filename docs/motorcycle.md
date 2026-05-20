@@ -411,7 +411,6 @@ if __name__ == "__main__":
 ---
 
 - **Honesty creed**: this document follows the `sample.md` gold-standard and must declare counter-examples and falsifiers.
-- **English first**: full body in English; claim words softened to draft / candidate / pattern / target per own#11.
 - **HEXA-FIRST**: Python stdlib only, zero external dependencies.
 
 

@@ -183,7 +183,6 @@ H6(v²/(2μg)), H8(c), H9(NHTSA 통계 유의성 ≥ 275M VMT), H10(ASIL-D
 B44(black-box mandate), C68(open safety case) 정도 — *합성 가능성이
 가장 적게 탐색된 축*.
 
-**미커버** (raw#10 C3 — 별도 audit 필요):
 
 - **H10 · H14 합성** 양산 통합 사례 부재 — 학계·산업 모두 *기술 게이트* 위주 탐구.
 - **H13 (sim-to-real)** 정량 측정 표준 부재 — operator마다 자체 metric (Waymo MPI, Mobileye REM 등은 모두 *behavioral* metric, *distributional* metric 아님).
@@ -329,7 +328,6 @@ B44(black-box mandate), C68(open safety case) 정도 — *합성 가능성이
 
 ---
 
-## §6 Honesty caveats (raw#10 C3 — UNVERIFIED at scale)
 
 Mirroring [`README.md`](README.md) §Verify and
 [`LIMIT_BREAKTHROUGH.md`](LIMIT_BREAKTHROUGH.md) §2.3.1:

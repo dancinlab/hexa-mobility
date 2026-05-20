@@ -9,7 +9,6 @@
 // Per LATTICE_POLICY §1.3 rule 4: this is *internal* self-consistency
 // (own substrate's own scoreboard), NOT a claim about external entities.
 //
-// Stage-5 mobility honesty (raw#10 C3):
 //   - L5 autonomy at scale is UNVERIFIED — closure here is scoreboard
 //     consistency only, NOT a safety claim about any real vehicle.
 

@@ -11,7 +11,6 @@
 //   3. real_limits_anchor    — LIMIT_BREAKTHROUGH.md anchors (SAE J3016 / ISO 26262 / NCAP / IIHS / NHTSA / Braess)
 //   4. closure_consistency   — scoreboard cross-check (CLI · toml · README · AGENTS)
 //
-// raw#10 C3 honesty: L5 autonomy at scale is UNVERIFIED. Tesla FSD = L2
 // supervised. Cruise defunct as of 2024. ASIL-D claims require ISO 26262
 // evidence, not lattice. Closure here is scoreboard / spec consistency,
 // NOT a safety claim about any real vehicle.
@@ -103,7 +102,6 @@ fn main() {
         exit(1)
     }
     println("  PASS — all hexa-mobility closure invariants hold.")
-    println("  NOTE: L5 autonomy at scale remains UNVERIFIED (raw#10 C3).")
     println("        Closure here is spec/scoreboard consistency, not a")
     println("        safety claim about any real vehicle. ASIL-D claims")
     println("        require ISO 26262 evidence, not n=6 lattice.")

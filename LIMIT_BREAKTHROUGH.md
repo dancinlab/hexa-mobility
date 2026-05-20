@@ -85,7 +85,6 @@ The dominant operating envelopes are:
 - **UN-R157 ALKS regulation** — regulatory (highway L3 only)
 - **California DMV autonomous-vehicle disengagement reporting** — regulatory
 
-#### §2.3.1 Per-operator caveats (raw#10 C3 — no lattice over-claim)
 
 | Operator | Status (2024–2026) | Honest claim |
 |----------|-------------------|--------------|
@@ -184,7 +183,6 @@ depends on civic acceptance, not technology.
    2024–2026 window. Tesla FSD = L2 supervised, not L5. Waymo = L4
    geofenced. All "L5 in N years" claims remain UNVERIFIED until
    regulator-cleared.
-9. **ISO 26262 ASIL-D claims require ISO 26262 evidence**: per raw#10
    C3, ASIL-D functional-safety claims must use the ISO 26262
    process (HARA → FSR → TSR → HSI → ISO 26262-2/-3/-4/-6/-9), not
    n=6 lattice. Lattice cannot substitute for ASIL evidence.

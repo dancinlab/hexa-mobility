@@ -20,7 +20,6 @@ Verify scripts re-touch markers on each run (timestamp overwrite). **No per-run 
 
 ## E. Promotion candidates
 
-- **n6 atoms** (LIGHT): Stage-5 ODD discrete combinations (weather × roadway × time) could be enumerated as σ(6)·φ(6)=24 invariant cells — but STAGE-5.md treats them as a real-engineering taxonomy, not a lattice claim. Per-honesty obligation (LATTICE_POLICY raw#10 C3), forced n6 mapping rejected.
 - **`.tape` future fit**: any future "real Stage-5 sim event log" (per-mile encounters: weather state · ODD breach · disengage cause) would be the natural `H` (history) tape consumer. None exists today.
 - **hxc / n12**: none.
 

@@ -47,7 +47,6 @@ Reference: `canon/domains/infra/autonomous-driving/autonomous-driving.md`
 
 ---
 
-## Cross-link policy (raw#10)
 
 Do NOT re-implement these; call sibling CLI directly:
 
