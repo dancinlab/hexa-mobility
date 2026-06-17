@@ -1,5 +1,4 @@
 # build/state artifacts
 build/
-state/
 *.tmp
 .DS_Store
